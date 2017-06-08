@@ -20,6 +20,7 @@ restService.post('/echo', function(req, res) {
     });
 });
 
+/*
 restService.post('/wiki', function(req, res) {
 
     var slack_message = {
@@ -74,6 +75,7 @@ restService.post('/wiki', function(req, res) {
     });
 });
 
+*/
 
 
 
