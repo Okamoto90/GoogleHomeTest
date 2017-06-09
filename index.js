@@ -20,62 +20,19 @@ restService.post('/echo', function(req, res) {
     });
 });
 
-/*
+
 restService.post('/wiki', function(req, res) {
 
-    var slack_message = {
-        "text": "Details of JIRA board for Browse and Commerce",
-        "attachments": [{
-            "title": "JIRA Board",
-            "title_link": "http://www.google.com",
-            "color": "#36a64f",
+    var name = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
 
-            "fields": [{
-                "title": "Epic Count",
-                "value": "50",
-                "short": "false"
-            }, {
-                "title": "Story Count",
-                "value": "40",
-                "short": "false"
-            }],
 
-            "thumb_url": "https://stiltsoft.com/blog/wp-content/uploads/2016/01/5.jira_.png"
-        }, {
-            "title": "Story status count",
-            "title_link": "http://www.google.com",
-            "color": "#f49e42",
-
-            "fields": [{
-                "title": "Not started",
-                "value": "50",
-                "short": "false"
-            }, {
-                "title": "Development",
-                "value": "40",
-                "short": "false"
-            }, {
-                "title": "Development",
-                "value": "40",
-                "short": "false"
-            }, {
-                "title": "Development",
-                "value": "40",
-                "short": "false"
-            }]
-        }]
-    }
     return res.json({
-        speech: "speech",
-        displayText: "speech",
-        source: 'webhook-echo-sample',
-        data: {
-            "slack": slack_message
-        }
+        speech: name,
+        displayText: "https://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=" + name + "&rvprop=content",
+        source: 'webhook-echo-sample'
     });
 });
 
-*/
 
 
 
