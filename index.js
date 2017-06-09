@@ -24,7 +24,16 @@ restService.post('/echo', function(req, res) {
 restService.post('/wiki', function(req, res) {
 
     var name = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
-
+    $.ajax({
+        type: 'GET',
+        url: "https://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=" + name + "&rvprop=content",
+        success: function(data) {
+            $('#content').append(data.responseText);
+        },
+        error: function(xhr, status, err) {
+            alert('HTML読み出しで問題がありました:' + url);
+        }
+    });
 
     return res.json({
         speech: name,
