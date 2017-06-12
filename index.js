@@ -24,8 +24,7 @@ restService.post('/echo', function(req, res) {
 restService.post('/wiki', function(req, res) {
 
     var name = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
-    var request = require('xml2js').parseString;
- 
+
     return res.json({
         speech: name,
         displayText: response.body,
