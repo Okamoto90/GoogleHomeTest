@@ -36,15 +36,14 @@ restService.post('/wiki', function(req, res) {
         method: 'POST',
         json : 'true'
     }
-    console.log(url);
-    request(options, function(err, resp, body) {
+    var r = request(options, function(err, res, body) {
         if (err) {
             console.log(url, err);
             return;
         } else {
             return res.json({
                 speech: name,
-                displayText: response,
+                displayText: res,
                 source: 'webhook-echo-sample'
             });
         }
@@ -53,17 +52,21 @@ restService.post('/wiki', function(req, res) {
 
 restService.listen((process.env.PORT || 8000), function() {
     console.log("Server up and listening");
-    // var url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&exintro&titles=Google&redirects"
-    // console.log(url);
-    // request(url, { json: true }, function(err, resp, body) {
+    // var headers = {
+    //     'Content-Type' : 'application/json'
+    // }
+    // var options = {
+    //     url : 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&exintro&titles=Google&redirects',
+    //     method: 'POST',
+    //     json : 'true'
+    // }
+    // var r = request(options, function(err, resp, body) {
     //     if (err) {
-    //         console.log(url, err);
+    //         console.log(r,options.url, err);
     //         return;
     //     } else {
-    //         callback(body, url);
+    //         console.log(response);
+    //         return;
     //     }
-    // });
-    // nodeWikipedia.page.data("Clifford_Brown", { content: true }, function(response) {
-    //     console.log(JSON.stringify(response.text,null,2));
     // });
 });
