@@ -2,7 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const $ = require('jQuery');
 const restService = express();
 
 restService.use(bodyParser.urlencoded({
@@ -24,11 +24,9 @@ restService.post('/echo', function(req, res) {
 restService.post('/wiki', function(req, res) {
 
     var name = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
-    var request = require('xml2js').parseString;
-    request({
-        url : "https://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=" + name + "&rvprop=content"
-    },function(error,response){
-       if (error!=null)throw  error;
+    $.getJson("https://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=" + name + "&rvprop=content",function (error,response,body) {
+      var d = JSON.parse(body);
+      var result = d.results;
     });
     return res.json({
         speech: name,
