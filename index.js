@@ -2,6 +2,8 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const request = require('request');
+const nodeWikipedia = require("node-wikipedia")
 const restService = express();
 
 restService.use(bodyParser.urlencoded({
@@ -23,25 +25,20 @@ restService.post('/echo', function(req, res) {
 restService.post('/wiki', function(req, res) {
 
     var name = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
-    var url = "https://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=" + name + "&rvprop=content";
-    searchWiki(url);
-    return res.json({
-        speech: name,
-        displayText: name,
-        source: 'webhook-echo-sample'
+    nodeWikipedia.page.data("Clifford_Brown", { content: true }, function(response) {
+        console.log(JSON.stringify(response.text,null,2));
+        return res.json({
+            speech: name,
+            displayText: JSON.stringify(response.text,null,2),
+            source: 'webhook-echo-sample'
+        });
     });
 });
 
-function searchWiki(url) {
-    request({
-        url :url,
-        method:'POST'
-    }),function (error,responce,body) {
-        console.log("error");
-    }
-}
-
-
 restService.listen((process.env.PORT || 8000), function() {
     console.log("Server up and listening");
+
+    // nodeWikipedia.page.data("Clifford_Brown", { content: true }, function(response) {
+    //     console.log(JSON.stringify(response.text,null,2));
+    // });
 });
