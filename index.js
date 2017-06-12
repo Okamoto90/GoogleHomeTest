@@ -2,7 +2,6 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const $ = require('jQuery');
 const restService = express();
 
 restService.use(bodyParser.urlencoded({
