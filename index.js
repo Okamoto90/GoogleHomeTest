@@ -24,10 +24,8 @@ restService.post('/echo', function(req, res) {
 restService.post('/wiki', function(req, res) {
 
     var name = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
-    $.getJson("https://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=" + name + "&rvprop=content",function (error,response,body) {
-      var d = JSON.parse(body);
-      var result = d.results;
-    });
+    var url = "https://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=" + name + "&rvprop=content";
+    searchWiki(url);
     return res.json({
         speech: name,
         displayText: name,
@@ -35,7 +33,14 @@ restService.post('/wiki', function(req, res) {
     });
 });
 
-
+function searchWiki(url) {
+    request({
+        url :url,
+        method:'POST'
+    }),function (error,responce,body) {
+        console.log("error");
+    }
+}
 
 
 restService.listen((process.env.PORT || 8000), function() {
