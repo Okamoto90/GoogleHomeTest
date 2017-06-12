@@ -25,7 +25,11 @@ restService.post('/wiki', function(req, res) {
 
     var name = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     var request = require('xml2js').parseString;
-
+    request({
+        url : "https://ja.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=" + name + "&rvprop=content"
+    },function(error,response){
+       if (error!=null)throw  error;
+    });
     return res.json({
         speech: name,
         displayText: name,
