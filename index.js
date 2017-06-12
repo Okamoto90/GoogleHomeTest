@@ -37,21 +37,20 @@ restService.post('/wiki', function(req, res) {
         json : 'true'
     }
     var r = request(options, function(err, resp, body) {
-        // if (err) {
-        //     console.log(resp,options.url, err);
-        //     res.json({
-        //         speech: name,
-        //         displayText: name,
-        //         source: 'webhook-echo-sample'
-        // });
-        // } else {
-        //     return res.json({
-        //         speech: name,
-        //         displayText: res,
-        //         source: 'webhook-echo-sample'
-        //     });
-        // }
-        return;
+        if (err) {
+            console.log(resp,options.url, err);
+            res.json({
+                speech: name,
+                displayText: name,
+                source: 'webhook-echo-sample'
+        });
+        } else {
+            return res.json({
+                speech: name,
+                displayText: res,
+                source: 'webhook-echo-sample'
+            });
+        }
     });
 });
 
