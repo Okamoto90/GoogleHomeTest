@@ -38,7 +38,7 @@ restService.post('/wiki', function(req, res) {
     }
     var r = request(options, function(err, res, body) {
         if (err) {
-            console.log(url, err);
+            console.log(options.url, err);
             return;
         } else {
             return res.json({
