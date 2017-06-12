@@ -51,6 +51,7 @@ restService.post('/wiki', function(req, res) {
         //         source: 'webhook-echo-sample'
         //     });
         // }
+        return;
     });
 });
 
