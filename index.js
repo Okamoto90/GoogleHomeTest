@@ -25,19 +25,37 @@ restService.post('/echo', function(req, res) {
 restService.post('/wiki', function(req, res) {
 
     var name = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
-    nodeWikipedia.page.data("Clifford_Brown", { content: true }, function(response) {
-        console.log(JSON.stringify(response.text,null,2));
-        return res.json({
-            speech: name,
-            displayText: JSON.stringify(response.text,null,2),
-            source: 'webhook-echo-sample'
-        });
+    // nodeWikipedia.page.data(name, { content: true }, function(response) {
+    //     console.log(JSON.stringify(response.text, null, 2));
+    // }
+    var url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&exintro&titles=Google&redirects"
+    console.log(url);
+    request(url, { json: true }, function(err, resp, body) {
+        if (err) {
+            console.log(url, err);
+            return;
+        } else {
+            return res.json({
+                speech: name,
+                displayText: callback(body, url),
+                source: 'webhook-echo-sample'
+            });
+        }
     });
 });
 
 restService.listen((process.env.PORT || 8000), function() {
     console.log("Server up and listening");
-
+    // var url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&exintro&titles=Google&redirects"
+    // console.log(url);
+    // request(url, { json: true }, function(err, resp, body) {
+    //     if (err) {
+    //         console.log(url, err);
+    //         return;
+    //     } else {
+    //         callback(body, url);
+    //     }
+    // });
     // nodeWikipedia.page.data("Clifford_Brown", { content: true }, function(response) {
     //     console.log(JSON.stringify(response.text,null,2));
     // });
