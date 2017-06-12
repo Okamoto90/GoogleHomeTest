@@ -36,10 +36,14 @@ restService.post('/wiki', function(req, res) {
         method: 'POST',
         json : 'true'
     }
-    var r = request(options, function(err, res, body) {
+    var r = request(options, function(err, resp, body) {
         if (err) {
-            console.log(options.url, err);
-            return;
+            console.log(resp,options.url, err);
+            res.json({
+                speech: name,
+                displayText: name,
+                source: 'webhook-echo-sample'
+        });
         } else {
             return res.json({
                 speech: name,
@@ -62,10 +66,10 @@ restService.listen((process.env.PORT || 8000), function() {
     // }
     // var r = request(options, function(err, resp, body) {
     //     if (err) {
-    //         console.log(r,options.url, err);
+    //         console.log(resp,options.url, err);
     //         return;
     //     } else {
-    //         console.log(response);
+    //         console.log(resp);
     //         return;
     //     }
     // });
