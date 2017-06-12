@@ -28,16 +28,23 @@ restService.post('/wiki', function(req, res) {
     // nodeWikipedia.page.data(name, { content: true }, function(response) {
     //     console.log(JSON.stringify(response.text, null, 2));
     // }
-    var url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&exintro&titles=Google&redirects"
+    var headers = {
+        'Content-Type' : 'application/json'
+    }
+    var options = {
+        url : 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&exintro&titles=Google&redirects',
+        method: 'POST',
+        json : 'true'
+    }
     console.log(url);
-    request(url, { json: true }, function(err, resp, body) {
+    request(options, function(err, resp, body) {
         if (err) {
             console.log(url, err);
             return;
         } else {
             return res.json({
                 speech: name,
-                displayText: callback(body, url),
+                displayText: response,
                 source: 'webhook-echo-sample'
             });
         }
