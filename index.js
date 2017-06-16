@@ -13,11 +13,11 @@ restService.use(bodyParser.urlencoded({
 restService.use(bodyParser.json());
 
 restService.post('/welcome', function(req, res) {
-    console.log('post /ha', request.headers);
-    var reqdata = request.body;
-    console.log('post /ha', reqdata);
+    // console.log('post /welcome', request.headers);
+    // var reqdata = request.body;
+    // console.log('post /welcome', reqdata);
     return res.json({
-        requestId: data.requestId,
+        //requestId: data.requestId,
         simpleResponse: {
             textToSpeech: "hello",
             displayText: "hello"
