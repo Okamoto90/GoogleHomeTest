@@ -1,0 +1,21 @@
+{
+	"actions": [
+      {
+        "description": "Default Welcome Intent",
+        "name": "echo",
+        "fulfillment": {
+          "conversationName": "echo"
+        },
+        "intent": {
+          "name": "echoText"
+        }
+      }
+    ],
+    "conversations": {
+      "echo": {
+        "name": "echo",
+        "url": "https://googlehometest99.herokuapp.com/echo/"
+      }
+    }
+
+}
