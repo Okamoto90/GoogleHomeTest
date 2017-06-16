@@ -2,19 +2,25 @@
 	"actions": [
       {
         "description": "Default Welcome Intent",
-        "name": "echo",
+        "name": "MAIN",
         "fulfillment": {
-          "conversationName": "echo"
+          "conversationName": "welcome"
         },
         "intent": {
-          "name": "echoText"
+          "name": "actions.intent.MAIN",
+          "trigger": {
+            "queryPatterns": [
+              "talk to test program"
+            ]
+          }
+
         }
       }
     ],
     "conversations": {
-      "echo": {
-        "name": "echo",
-        "url": "https://googlehometest99.herokuapp.com/echo/"
+      "welcome": {
+        "name": "welcome",
+        "url": "https://googlehometest99.herokuapp.com/welcome/"
       }
     }
 
